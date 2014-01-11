@@ -1,118 +1,113 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=screen.width; user-scalable=no" />
-<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<title>Name Trendz</title>
-<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.0a2.css"
-	type="text/css" charset="utf-8" />
-<link rel="stylesheet" href="nametrendz-override.css" type="text/css"
-	charset="utf-8" />
-<script src="jquery.mobile/jquery-1.4.4.js"></script>
-<script src="jquery.mobile/jquery.mobile-1.0a2.js"></script>
-<script type="text/javascript" charset="utf-8" src="phonegap.0.9.4.js"></script>
-<script type="text/javascript" charset="utf-8" src="names50.js"></script>
-<script type="text/javascript" charset="utf-8" src="main.js"></script>
-<script type="text/javascript" charset="utf-8" src="quotes.js"></script>
-<script type="text/javascript" charset="utf-8" src="contacts.js"></script>
-<script type="text/javascript" charset="utf-8" src="trend.js"></script>
-<script type="text/javascript" charset="utf-8" src="shaker.js"></script>
+<title>Capture Photo</title>
+<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1"/>
+<script type="text/javascript" charset="utf-8" src="js/phonegap.js"></script>
 <script type="text/javascript" charset="utf-8">
-function onBodyLoad() {
-document.addEventListener("deviceready", onDeviceReady,
-false);
-}
+ 
+var pictureSource; // picture source
+var destinationType; // sets the format of returned value
+ 
+// Wait for PhoneGap to connect with the device
+//
+document.addEventListener("deviceready",onDeviceReady,false);
+ 
+// PhoneGap is ready to be used!
+//
 function onDeviceReady() {
-navigator.notification.alert("onDeviceReady");
+pictureSource=navigator.camera.PictureSourceType;
+destinationType=navigator.camera.DestinationType;
 }
-function takePhoto() {
-navigator.camera.getPicture(onCameraSuccess,
-onCameraError);
+ 
+// Called when a photo is successfully retrieved
+//
+function onPhotoDataSuccess(imageData) {
+// Get image handle
+//
+var smallImage = document.getElementById('smallImage');
+ 
+// Unhide image elements
+//
+smallImage.style.display = 'block';
+ 
+// Show the captured photo
+// The inline CSS rules are used to resize the image
+//
+smallImage.src = "data:image/jpeg;base64," + imageData;
 }
-function onCameraSuccess(imageURL) {
-navigator.notification.alert("onCameraSuccess: " +
-imageURL);
+// Called when a photo is successfully retrieved
+//
+function onPhotoFileSuccess(imageData) {
+// Get image handle
+console.log(JSON.stringify(imageData));
+// Get image handle
+//
+var smallImage = document.getElementById('smallImage');
+ 
+// Unhide image elements
+//
+smallImage.style.display = 'block';
+ 
+// Show the captured photo
+// The inline CSS rules are used to resize the image
+//
+smallImage.src = imageData;
 }
-function onCameraError(e) {
-navigator.notification.alert("onCameraError: " + e);
+ 
+// Called when a photo is successfully retrieved
+//
+function onPhotoURISuccess(imageURI) {
+// Uncomment to view the image file URI
+// console.log(imageURI);
+ 
+// Get image handle
+//
+var largeImage = document.getElementById('largeImage');
+ 
+// Unhide image elements
+//
+largeImage.style.display = 'block';
+ 
+// Show the captured photo
+// The inline CSS rules are used to resize the image
+//
+largeImage.src = imageURI;
 }
+ 
+// A button will call this function
+//
+function capturePhotoWithData() {
+// Take picture using device camera and retrieve image as base64-encoded string
+navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
+}
+ 
+function capturePhotoWithFile() {
+navigator.camera.getPicture(onPhotoFileSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
+}
+// A button will call this function
+//
+function getPhoto(source) {
+// Retrieve image file location from specified source
+navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+destinationType: destinationType.FILE_URI,
+sourceType: source });
+}
+ 
+// Called if something bad happens.
+//
+function onFail(message) {
+alert('Failed because: ' + message);
+}
+ 
 </script>
 </head>
-<body onload="onBodyLoad()">
-  
-<!-- Start of pagehome Start of pagehome Start of pagehome  -->
-<div data-role="page" data-theme="b" id="pagehome"
-	style="background-image: url(images/wp_bg_clouds_tile.png);">
-<div data-role="header" data-nobackbtn="true">
-<h1>koki</h1>
-<a href="#pageabout" data-icon="info" class="ui-btn-right">About</a></div>
-
-<div data-role="content">
-
-<ul data-role="listview" data-inset="true">
-	<li data-role="list-divider">
-	<div id="quotes-div"></div>
-	</li>
-	<li data-role="list-divider">
-	<div id="quotesauth-div"></div>
-	</li>
-</ul>
-
-
-<p>Using the PhoneGap Camera API<br />
-<input type="button" value="Take a Picture"
-onclick="takePhoto();">
-</p>
-
-<!--  --></div>
-<!-- /content --></div>
-<!-- /pagehome /pagehome /pagehome /pagehome -->
-
-
-<!-- Start of pageadd Start of pageadd Start of pageadd  -->
-<div data-role="page" data-theme="b" id="pageadd">
-<div data-role="header" data-nobackbtn="false">
-	<h1>Add a Name</h1>
-	 <a href="#" data-icon="check" id="savenamebtn" class="ui-btn-right">Save</a>
-</div>
-<div data-role="content">
-
-	<div></div>
-		<div data-role="fieldcontain">
-    		<label for="name"><h4>koki</h4></label>
-    		<input type="text" name="name" id="inputname" value=""  />
-		</div>
-	<div></div>
-	<div data-role="controlgroup" data-type="horizontal">
-		<legend><h4>Add name to a List:</h4></legend>
-		<center><a href="#" id="inputlikesadd" data-role="button">Likes</a>
-		<a href="#" id="inputdislikesadd" data-role="button">Dislikes</a></center>
-	</div>
-</div> <!-- /content -->
-
-</div> <!-- /pageadd /pageadd /pageadd /pageadd -->
-
-
-</div>
-<div>
-	<center><h3>(a header)</h3></center>
-</div>
-<div data-role="content">
-
-
-<div data-role="button" id="noname">(a btn)</div>
-
-
-</div> <!-- /content -->
-
-<div data-role="footer" data-position="fixed">
-	<div data-role="navbar">
-		<ul>
-			<li><a href="#">(Navbar item)</a></li>
-		</ul>
-	</div><!-- /navbar -->
-</div> <!-- /footer -->
-
-</div> <!-- /pagetemplate /pagetemplate /pagetemplate /pagetemplate -->
-  </body>
+<body>
+<button onclick="capturePhotoWithData();">Capture Photo With Image Data</button> <br>
+<button onclick="capturePhotoWithFile();">Capture Photo With Image File URI</button> <br>
+<button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+<button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+<img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+<img style="display:none;" id="largeImage" src="" />
+</body>
 </html>

@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta name="viewport" content="width=screen.width; user-scalable=no" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>Name Trendz</title>
+<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.0a2.css"
+	type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="nametrendz-override.css" type="text/css"
+	charset="utf-8" />
+<script src="jquery.mobile/jquery-1.4.4.js"></script>
+<script src="jquery.mobile/jquery.mobile-1.0a2.js"></script>
+<script type="text/javascript" charset="utf-8" src="phonegap.0.9.4.js"></script>
+<script type="text/javascript" charset="utf-8" src="names50.js"></script>
+<script type="text/javascript" charset="utf-8" src="main.js"></script>
+<script type="text/javascript" charset="utf-8" src="quotes.js"></script>
+<script type="text/javascript" charset="utf-8" src="contacts.js"></script>
+<script type="text/javascript" charset="utf-8" src="trend.js"></script>
+<script type="text/javascript" charset="utf-8" src="shaker.js"></script>
+<script type="text/javascript" charset="utf-8">
+function onBodyLoad() {
+document.addEventListener("deviceready", onDeviceReady,
+false);
+}
+function onDeviceReady() {
+navigator.notification.alert("onDeviceReady");
+}
+function takePhoto() {
+navigator.camera.getPicture(onCameraSuccess,
+onCameraError);
+}
+function onCameraSuccess(imageURL) {
+navigator.notification.alert("onCameraSuccess: " +
+imageURL);
+}
+function onCameraError(e) {
+navigator.notification.alert("onCameraError: " + e);
+}
+</script>
+</head>
+<body onload="onBodyLoad();">
+  
+<!-- Start of pagehome Start of pagehome Start of pagehome  -->
+<div data-role="page" data-theme="b" id="pagehome"
+	style="background-image: url(images/wp_bg_clouds_tile.png);">
+<div data-role="header" data-nobackbtn="true">
+<h1>koki</h1>
+<a href="#pageabout" data-icon="info" class="ui-btn-right">About</a></div>
+
+<div data-role="content">
+
+<ul data-role="listview" data-inset="true">
+	<li data-role="list-divider">
+	<div id="quotes-div"></div>
+	</li>
+	<li data-role="list-divider">
+	<div id="quotesauth-div"></div>
+	</li>
+</ul>
+
+
+<p>Using the PhoneGap Camera API<br />
+<input type="button" value="Take a Picture"
+onclick="takePhoto();">
+</p>
+
+<!--  --></div>
+<!-- /content --></div>
+<!-- /pagehome /pagehome /pagehome /pagehome -->
+
+
+<!-- Start of pageadd Start of pageadd Start of pageadd  -->
+<div data-role="page" data-theme="b" id="pageadd">
+<div data-role="header" data-nobackbtn="false">
+	<h1>Add a Name</h1>
+	 <a href="#" data-icon="check" id="savenamebtn" class="ui-btn-right">Save</a>
+</div>
+<div data-role="content">
+
+	<div></div>
+		<div data-role="fieldcontain">
+    		<label for="name"><h4>koki</h4></label>
+    		<input type="text" name="name" id="inputname" value=""  />
+		</div>
+	<div></div>
+	<div data-role="controlgroup" data-type="horizontal">
+		<legend><h4>Add name to a List:</h4></legend>
+		<center><a href="#" id="inputlikesadd" data-role="button">Likes</a>
+		<a href="#" id="inputdislikesadd" data-role="button">Dislikes</a></center>
+	</div>
+</div> <!-- /content -->
+
+</div> <!-- /pageadd /pageadd /pageadd /pageadd -->
+
+
+</div>
+<div>
+	<center><h3>(a header)</h3></center>
+</div>
+<div data-role="content">
+
+
+<div data-role="button" id="noname">(a btn)</div>
+
+
+</div> <!-- /content -->
+
+<div data-role="footer" data-position="fixed">
+	<div data-role="navbar">
+		<ul>
+			<li><a href="#">(Navbar item)</a></li>
+		</ul>
+	</div><!-- /navbar -->
+</div> <!-- /footer -->
+
+</div> <!-- /pagetemplate /pagetemplate /pagetemplate /pagetemplate -->
+  </body>
+</html>
